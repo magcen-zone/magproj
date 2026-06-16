@@ -1,0 +1,12 @@
+{
+  "name": "@app/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.js" },
+  "scripts": {
+    "typecheck": "tsc -p jsconfig.json --noEmit",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "devDependencies": { "jest": "30.3.0", "@jest/globals": "30.3.0", "typescript": "^5" }
+}

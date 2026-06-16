@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+
+# turborepo
+.turbo/
+
+# next.js
+**/.next/
+**/out/
+
+# expo
+**/.expo/
+**/dist/
+**/web-build/
+expo-env.d.ts
+
+# native builds (expo prebuild output)
+**/ios/
+**/android/
+
+# testing / coverage
+**/coverage/
+**/test-results/
+**/playwright-report/
+
+# typescript
+*.tsbuildinfo
+
+# env
+.env
+.env*.local
+
+# misc
+.DS_Store
+*.log
+.vscode/
