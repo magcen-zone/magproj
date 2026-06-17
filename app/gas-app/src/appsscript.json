@@ -1,0 +1,28 @@
+{
+  "timeZone": "Asia/Tokyo",
+  "runtimeVersion": "V8",
+  "exceptionLogging": "STACKDRIVER",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/spreadsheets"
+  ],
+  "urlFetchWhitelist": ["https://example.com/"],
+  "dependencies": {
+    "enabledAdvancedServices": [
+      { "userSymbol": "Sheets", "serviceId": "sheets", "version": "v4" }
+    ],
+    "libraries": [
+      { "userSymbol": "OAuth2", "libraryId": "REPLACE_LIBRARY_SCRIPT_ID", "version": "1", "developmentMode": false }
+    ]
+  },
+  "webapp": { "access": "ANYONE_ANONYMOUS", "executeAs": "USER_DEPLOYING" },
+  "executionApi": { "access": "ANYONE" },
+  "addOns": {
+    "common": {
+      "name": "Workspace App",
+      "logoUrl": "https://www.gstatic.com/images/branding/product/1x/apps_script_48dp.png",
+      "useLocaleFromApp": true,
+      "homepageTrigger": { "runFunction": "onHomepage", "enabled": true }
+    }
+  }
+}

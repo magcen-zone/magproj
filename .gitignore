@@ -34,3 +34,6 @@ expo-env.d.ts
 .DS_Store
 *.log
 .vscode/
+
+# google apps script (clasp) — vendor.js 由 esbuild 生成；.clasp.json 含 placeholder 故提交
+app/gas-app/src/vendor.js
