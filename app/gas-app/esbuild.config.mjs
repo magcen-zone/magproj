@@ -1,18 +1,18 @@
 import { build, context } from 'esbuild';
 import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('esbuild').BuildOptions} */
 const options = {
-  // 内联入口：仅把依赖（@app/core 等）打包进 src/vendor.js，暴露为全局 Vendor。
-  stdin: { contents: "export * from '@app/core';", resolveDir: __dirname, loader: 'js' },
+  // 依赖清单见 vendor-pack.js（workspace + npm 都在那里 re-export）。
+  entryPoints: [join(__dirname, 'vendor-pack.js')],
   bundle: true,
   format: 'iife',
   globalName: 'Vendor',
   target: 'es2020',
-  outfile: 'src/vendor.js',
+  outfile: join(__dirname, 'src/vendor.js'),
 };
 
 if (process.argv.includes('--watch')) {

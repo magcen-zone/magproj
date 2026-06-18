@@ -8,6 +8,6 @@
     "target": "esnext",
     "types": ["google-apps-script"]
   },
-  "include": ["src"],
+  "include": ["src", "vendor-pack.js"],
   "exclude": ["src/vendor.js"]
 }
