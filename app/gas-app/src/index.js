@@ -1,12 +1,12 @@
-// @ts-check
-
 /**
  * 取得 src/vendor.js 在运行时注入的全局依赖集合。
  * 类型源为 vendor-pack.js（单一真实源，与打包内容自动一致）。
  * @returns {typeof import('../vendor-pack.js')}
  */
 function deps() {
-  /** @type {any} */
+  /**
+   * @type {any}
+   */
   const g = globalThis;
   return g.Vendor;
 }

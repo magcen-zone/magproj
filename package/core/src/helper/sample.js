@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 平台无关的纯函数示例库（占位，替换为真实逻辑）。
  * @module helper/sample

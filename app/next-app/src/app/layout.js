@@ -1,6 +1,6 @@
-// @ts-check
-
-/** @type {import('next').Metadata} */
+/**
+ * @type {import('next').Metadata}
+ */
 export const metadata = {
   title: 'next-app',
   description: 'supadevops Next.js 应用',

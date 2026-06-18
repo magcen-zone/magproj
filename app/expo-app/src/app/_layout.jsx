@@ -1,4 +1,3 @@
-// @ts-check
 import { Stack } from 'expo-router';
 
 /**

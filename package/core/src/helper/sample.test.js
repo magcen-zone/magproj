@@ -1,4 +1,3 @@
-// @ts-check
 import { describe, it, expect } from '@jest/globals';
 import { add } from './sample.js';
 
