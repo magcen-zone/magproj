@@ -2,10 +2,11 @@
   "name": "gas-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "typecheck": "tsc -p jsconfig.json --noEmit",
-    "test": "jest --passWithNoTests",
-    "build": "esbuild vendor-pack.js --bundle --format=iife --global-name=Vendor --target=es2020 --outfile=src/vendor.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "build": "esbuild vendor-pack.js --bundle --format=iife --global-name=Vendor --target=es2020 --outfile=src/app/vendor.js",
     "dev": "npm run build -- --watch",
     "push": "clasp push",
     "deploy": "clasp deploy"
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@google/clasp": "^3",
+    "@jest/globals": "30.3.0",
     "@types/google-apps-script": "^1",
     "esbuild": "^0.25",
     "jest": "30.3.0",

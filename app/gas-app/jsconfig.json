@@ -9,5 +9,5 @@
     "types": ["google-apps-script"]
   },
   "include": ["src", "vendor-pack.js"],
-  "exclude": ["src/vendor.js"]
+  "exclude": ["src/app/vendor.js"]
 }

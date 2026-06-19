@@ -1,7 +1,7 @@
 /**
- * 取得 src/vendor.js 在运行时注入的全局依赖集合。
+ * 取得 src/app/vendor.js 在运行时注入的全局依赖集合（命名空间）。
  * 类型源为 vendor-pack.js（单一真实源，与打包内容自动一致）。
- * @returns {typeof import('../vendor-pack.js')}
+ * @returns {typeof import('../../vendor-pack.js')}
  */
 function deps() {
   /**
@@ -13,11 +13,12 @@ function deps() {
 
 /**
  * Web 应用入口（GET）。占位实现：替换为真实逻辑。
+ * 业务逻辑置于 src/helper（用 Jest 固化），经 vendor-pack→vendor.js 注入。
  * @param {GoogleAppsScript.Events.DoGet} e
  * @returns {GoogleAppsScript.Content.TextOutput}
  */
 function doGet(e) {
-  return ContentService.createTextOutput(String(deps().add(1, 2)));
+  return ContentService.createTextOutput(String(deps().helper.tally([1, 2, 3])));
 }
 
 /**
@@ -25,5 +26,5 @@ function doGet(e) {
  * @returns {void}
  */
 function main() {
-  console.log(String(deps().add(1, 2)));
+  console.log(String(deps().lib.add(1, 2)));
 }
