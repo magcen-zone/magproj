@@ -5,15 +5,14 @@
   "type": "module",
   "workspaces": ["app/*", "package/*"],
   "scripts": {
-    "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
-    "lint": "turbo run lint",
-    "build": "turbo run build",
-    "dev": "turbo run dev"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "check": "npm run typecheck && npm run test"
   },
   "devDependencies": {
     "@types/node": "^24",
-    "turbo": "^2.9.18",
     "typescript": "^5"
   },
   "packageManager": "npm@11.13.0"
