@@ -4,7 +4,7 @@
 // 自 workspace 的纯逻辑（用 Jest 固化，与 next/expo 同一 TDD）：
 export * as helper from './src/helper/index.js';
 // export * as action from './src/action/index.js'; // 追加 src/action 逻辑时取消注释
-// workspace 共享库（root/package/*）：
+// workspace 共享库（root/shared/*）：
 export * as lib from '@app/core';
 // 第三方 npm 依赖：
 // export * as dayjs from 'dayjs';
