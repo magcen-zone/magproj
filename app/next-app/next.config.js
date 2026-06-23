@@ -2,7 +2,7 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  transpilePackages: ['@app/core'],
+  transpilePackages: ['@shared/fun-app'],
 };
 
 export default nextConfig;

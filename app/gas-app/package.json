@@ -12,7 +12,7 @@
     "deploy": "clasp deploy"
   },
   "dependencies": {
-    "@app/core": "*"
+    "@shared/fun-app": "*"
   },
   "devDependencies": {
     "@google/clasp": "^3",

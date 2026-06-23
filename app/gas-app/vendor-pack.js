@@ -5,7 +5,7 @@
 export * as helper from './src/helper/index.js';
 // export * as action from './src/action/index.js'; // 追加 src/action 逻辑时取消注释
 // workspace 共享库（root/shared/*）：
-export * as lib from '@app/core';
+export * as lib from '@shared/fun-app';
 // 第三方 npm 依赖：
 // export * as dayjs from 'dayjs';
 // export * as z from 'zod';

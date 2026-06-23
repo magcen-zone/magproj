@@ -1,42 +1,57 @@
-# supa-starter
+# magproj
 
-[supadevops](https://github.com/magcen-zone/supadevops) 的**部署中立**起步模板：npm workspaces 的 monorepo（Next.js App Router + Expo Router + Google Apps Script + 共享库），全部 **JS + JSDoc**（无 TypeScript 语法）、**ESM**、契约优先 + TDD 规约就绪、`npm run check` 为绿。
+[magdev](https://github.com/magcen-zone/magdev) の**デプロイ中立な monorepo テンプレート**。npm workspaces による monorepo（Next.js App Router + Expo Router + Google Apps Script + 共有ライブラリ）で、すべて **JS + JSDoc**（TypeScript 構文なし）・**ESM**・契約優先 + TDD 規約 ready・`npm run check` が緑。
 
-> 本仓库由 supadevops 插件的 `/supa-init` 命令消费。**一般无需手动 clone** —— 在你的项目目录运行 `/supa-init <next-名> <expo-名> <gas-名> <lib-名>`，它会以固定 tag 取得本模板（`degit`），并把占位名确定性重命名为你的项目名。
+> 本リポジトリは magdev プラグインの **`/magdev:new`** が消費します。**通常は手動 clone 不要** —— プロジェクトのディレクトリで `/magdev:new <共通名>` を実行すると、固定 tag で本テンプレを取得（`degit`）し、プレースホルダ名を決定論的にあなたのプロジェクト名へリネームします。
 
-## 结构（占位名）
+## 構成（プレースホルダ名）
 
 ```
-monorepo/
-├─ package.json            # type:module, workspaces:["app/*","package/*"], scripts(typecheck/test/check/...)
-├─ package-lock.json       # 已提交（锁定外部依赖的精确版本）
+magproj/
+├─ package.json            # type:module, workspaces:["app/*","shared/*"], scripts(typecheck/test/check/...)
+├─ package-lock.json       # コミット済み（外部依存の精密バージョンをロック）
 ├─ app/
 │  ├─ next-app/            # Next.js（src/app、jsconfig checkJs、jest ESM、next.config.js transpilePackages）
 │  ├─ expo-app/            # Expo Router（src/app、metro/babel.config.cjs、jest-expo、app.json web.output:single）
 │  └─ gas-app/             # Google Apps Script（src/app=push 入口、vendor-pack.js→esbuild→src/app/vendor.js、clasp）
-└─ package/
-   └─ core/                # 共享库 @app/core（仅平台无关的逻辑/类型）
+└─ shared/
+   └─ fun-app/             # 共有ライブラリ @shared/fun-app（プラットフォーム非依存のロジック/型）
 ```
 
-每个 app/lib 的 `src/` 同形（`helper/ action/ component/ type/ endpoint/ end2end/ app/`，各含 `.gitkeep`）。占位名 `next-app` / `expo-app` / `gas-app` / `core`（npm 名 `@app/core`）会被 `/supa-init` 按你的项目名整体替换。
+各 app / 共有ライブラリの `src/` は同形（`type/ helper/ action/ component/ endpoint/ end2end/ app/`、各 `.gitkeep` 付き。Expo の `end2end` は `web/`・`native/`）。
 
-## 直接使用（手动）
+## リネーム規則（`/magdev:new`）
+
+プレースホルダ名は統一パターン **`<prefix>-app`**（prefix = `next` / `expo` / `gas` / `fun`）。`/magdev:new <共通名>` が `app` 部分を共通名へ置換する:
+
+```
+/magdev:new shop
+  app/next-app   → app/next-shop
+  app/expo-app   → app/expo-shop
+  app/gas-app    → app/gas-shop
+  shared/fun-app → shared/fun-shop   （npm 名 @shared/fun-app → @shared/fun-shop）
+```
+
+`app` は共通名にできません（プレースホルダを再生成してしまうため）。npm スコープ `@shared` は不変です。
+
+## 直接使う（手動）
 
 ```bash
 npm install
-npm run check                     # 全 workspace 的 tsc --noEmit + jest（含 jest-expo）
-npm run dev   -w app/next-app     # Next.js 开发服务器
+npm run check                     # = npm run typecheck && npm run test
+                                  #   = 全 workspace の tsc -p jsconfig.json --noEmit（型）+ jest（単体・jest-expo 含む）
+npm run dev   -w app/next-app     # Next.js 開発サーバー
 npm run web   -w app/expo-app     # Expo web
-npm run build -w app/gas-app      # GAS：esbuild 打包为 src/app/vendor.js（之后 clasp push，需先绑定 scriptId）
+npm run build -w app/gas-app      # GAS: esbuild で src/app/vendor.js を生成（その後 clasp push。先に scriptId バインドが必要）
 ```
 
-## 版本与确定性
+## バージョンと決定性
 
-- **无 turborepo**：JS+JSDoc 无构建产物（tsc `--noEmit` + jest 直跑），gate 以 npm workspaces 的 `npm run check`（= `typecheck && test`）全量执行（sub-second），简洁且确定。
-- 关键工具链固定**精确版本**以保证可重复：`jest` 锁定 `30.3.0`（规避 30.4.x 的 native-ESM `--experimental-vm-modules` 缺陷）。Next / React / Expo SDK 由 `package-lock.json` 锁定。
-- 平台无关的 `package/core` 与 Expo 应用的 `jsconfig` 使用 `"types": []`（它们不是 Node 程序；避免 `@types/node` 经 `punycode` 触发 `checkJs` 误检）。Next 应用保留 `"types": ["node"]`。
-- **扩展名/类型检查规范**：`type:module` 下一律 `.js`；`.cjs` 仅限 Expo 的 `babel.config`/`metro.config`（同步加载不接受 ESM）；不使用 per-file `// @ts-check`（统一由 jsconfig `checkJs` 把关）。
+- **turborepo なし**: JS+JSDoc はビルド産物を持たない（`tsc --noEmit` + `jest` を直接実行）。gate は npm workspaces の `npm run check`（= `typecheck && test`）を全量実行（sub-second）で、簡潔かつ決定論的。
+- 主要ツールチェーンは**精密バージョン固定**で再現性を担保: `jest` は `30.3.0` 固定（30.4.x の native-ESM `--experimental-vm-modules` 不具合を回避）。Next / React / Expo SDK は `package-lock.json` でロック。
+- プラットフォーム非依存の `shared/fun-app` と Expo アプリの `jsconfig` は `"types": []`（Node プログラムではないため。`@types/node` 経由の `punycode` が `checkJs` 誤検出を起こすのを回避）。Next アプリは `"types": ["node"]` を保持。
+- **拡張子 / 型検査規約**: `type:module` 下では一律 `.js`。`.cjs` は Expo の `babel.config` / `metro.config` のみ（同期ロードで ESM 不可）。per-file `// @ts-check` は使わない（jsconfig の `checkJs` で一括把握）。
 
-## 手动再生成（维护者）
+## 手動再生成（維持者向け）
 
-本模板按 supadevops 文档一次性生成（`create-next-app` + `create-expo-app` + Expo 的 TS→JS+JSDoc 转换 + 固有配置），并确认 `npm run check` 为绿后**冻结**。依赖陈旧时重复该步骤，绿后提交并打 tag（`/supa-init` 以 tag 固定取得）。
+本テンプレは magdev のドキュメントに従って一度だけ生成（`create-next-app` + `create-expo-app` + Expo の TS→JS+JSDoc 変換 + 固有設定）し、`npm run check` 緑を確認して**凍結**したもの。依存が陳腐化したらその手順を繰り返し、緑を確認後にコミットして tag を打つ（`/magdev:new` は tag で固定取得する）。
