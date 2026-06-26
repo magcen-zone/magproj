@@ -1,0 +1,8 @@
+{
+  "name": "add-app",
+  "version": "0.0.0",
+  "description": "claude plugin（magproj add-app 雛形）。/magdev:new <共通名> plugin で add-<共通名> にリネームされる。skills/agents/hooks/mcp/scripts のプレースホルダを magdev の plugin プロファイルで埋めて開発する。",
+  "author": { "name": "magcen-zone" },
+  "license": "MIT",
+  "keywords": ["claude-plugin", "magproj", "template"]
+}

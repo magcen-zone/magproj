@@ -13,22 +13,26 @@ magproj/
 ├─ app/
 │  ├─ next-app/            # Next.js（src/app、jsconfig checkJs、jest ESM、next.config.js transpilePackages）
 │  ├─ expo-app/            # Expo Router（src/app、metro/babel.config.cjs、jest-expo、app.json web.output:single）
-│  └─ gas-app/             # Google Apps Script（src/app=push 入口、vendor-pack.js→esbuild→src/app/vendor.js、clasp）
+│  ├─ gas-app/             # Google Apps Script（src/app=push 入口、vendor-pack.js→esbuild→src/app/vendor.js、clasp）
+│  └─ add-app/             # claude plugin 雛形（.claude-plugin、skills/helper=正本、agents/hooks/mcp/scripts、commands なし）
 └─ shared/
    └─ fun-app/             # 共有ライブラリ @shared/fun-app（プラットフォーム非依存のロジック/型）
 ```
+
+`app/add-app` は claude plugin 開発用の雛形ワークスペース。magdev の **plugin プロファイル**で開発する（next/expo/gas の app とは構造が異なり、`src/` ではなく `skills/`・`agents/`・`hooks/`・`scripts/` を持つ）。
 
 各 app / 共有ライブラリの `src/` は同形（`type/ helper/ action/ component/ endpoint/ end2end/ app/`、各 `.gitkeep` 付き。Expo の `end2end` は `web/`・`native/`）。
 
 ## リネーム規則（`/magdev:new`）
 
-プレースホルダ名は統一パターン **`<prefix>-app`**（prefix = `next` / `expo` / `gas` / `fun`）。`/magdev:new <共通名>` が `app` 部分を共通名へ置換する:
+プレースホルダ名は統一パターン **`<prefix>-app`**（prefix = `next` / `expo` / `gas` / `add` / `fun`）。`/magdev:new <共通名> <profile>` が `app` 部分を共通名へ置換する:
 
 ```
-/magdev:new shop
+/magdev:new shop front-end-office
   app/next-app   → app/next-shop
   app/expo-app   → app/expo-shop
   app/gas-app    → app/gas-shop
+  app/add-app    → app/add-shop
   shared/fun-app → shared/fun-shop   （npm 名 @shared/fun-app → @shared/fun-shop）
 ```
 

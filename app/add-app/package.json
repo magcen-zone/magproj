@@ -1,0 +1,11 @@
+{
+  "name": "add-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p jsconfig.json --noEmit",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "devDependencies": { "jest": "30.3.0", "@jest/globals": "30.3.0", "typescript": "^5" }
+}

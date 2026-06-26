@@ -1,0 +1,14 @@
+{
+  "name": "magcen-zone",
+  "owner": { "name": "magcen-zone" },
+  "metadata": {
+    "description": "magcen-zone の Claude Code プラグイン配布マーケット（本部: github.com/magcen-zone）。"
+  },
+  "plugins": [
+    {
+      "name": "add-app",
+      "source": "./",
+      "description": "claude plugin（magproj add-app 雛形）。magdev の plugin プロファイルで開発する。"
+    }
+  ]
+}
