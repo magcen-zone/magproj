@@ -2,7 +2,7 @@
 
 [magdev](https://github.com/magcen-zone/magdev) の**デプロイ中立な monorepo テンプレート**。npm workspaces による monorepo（Next.js App Router + Expo Router + Google Apps Script + 共有ライブラリ）で、すべて **JS + JSDoc**（TypeScript 構文なし）・**ESM**・契約優先 + TDD 規約 ready・`npm run check` が緑。
 
-> 本リポジトリは magdev プラグインの **`/magdev:new`** が消費します。**通常は手動 clone 不要** —— プロジェクトのディレクトリで `/magdev:new <共通名>` を実行すると、固定 tag で本テンプレを取得（`degit`）し、プレースホルダ名を決定論的にあなたのプロジェクト名へリネームします。
+> 本リポジトリは magdev プラグインの **`/magdev:new`** が消費します。**通常は手動 clone 不要** —— プロジェクトのディレクトリで `/magdev:new <共通名> <profile>` を実行すると、**main ブランチ**から本テンプレを取得（`degit`）し、プレースホルダ名を決定論的にあなたのプロジェクト名へリネームします。
 
 ## 構成（プレースホルダ名）
 
@@ -21,7 +21,7 @@ magproj/
 
 `app/add-app` は claude plugin 開発用の雛形ワークスペース。magdev の **plugin プロファイル**で開発する（next/expo/gas の app とは構造が異なり、`src/` ではなく `skills/`・`agents/`・`hooks/`・`scripts/` を持つ）。
 
-各 app / 共有ライブラリの `src/` は同形（`type/ helper/ action/ component/ endpoint/ end2end/ app/`、各 `.gitkeep` 付き。Expo の `end2end` は `web/`・`native/`）。
+各 app / 共有ライブラリの `src/` は同形（`type/ helper/ action/ data/ component/ endpoint/ end2end/ app/`、各 `.gitkeep` 付き。Expo の `end2end` は `web/`・`native/`）。`data/` は middle office プロファイルの pgsql repository 層で使う（他プロファイルでは未使用＝無視）。
 
 ## リネーム規則（`/magdev:new`）
 
@@ -58,4 +58,4 @@ npm run build -w app/gas-app      # GAS: esbuild で src/app/vendor.js を生成
 
 ## 手動再生成（維持者向け）
 
-本テンプレは magdev のドキュメントに従って一度だけ生成（`create-next-app` + `create-expo-app` + Expo の TS→JS+JSDoc 変換 + 固有設定）し、`npm run check` 緑を確認して**凍結**したもの。依存が陳腐化したらその手順を繰り返し、緑を確認後にコミットして tag を打つ（`/magdev:new` は tag で固定取得する）。
+本テンプレは magdev のドキュメントに従って一度だけ生成（`create-next-app` + `create-expo-app` + Expo の TS→JS+JSDoc 変換 + 固有設定）し、`npm run check` 緑を確認して**凍結**したもの。依存が陳腐化したらその手順（各公式 CLI で再生成 → magproj 規約を再適用 → 緑確認）を繰り返し、**dev → GitHub PR → main** で反映する（`/magdev:new` は main を degit する。main は常時緑運用）。
