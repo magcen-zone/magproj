@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "workspaces": ["app/*", "shared/*"],
+  "workspaces": [
+    "app/*",
+    "shared/*"
+  ],
   "scripts": {
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
@@ -12,7 +15,7 @@
   },
   "devDependencies": {
     "@types/node": "^24",
-    "typescript": "^5"
+    "typescript": "^6"
   },
   "packageManager": "npm@11.13.0"
 }
