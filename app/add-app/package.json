@@ -1,11 +1,8 @@
 {
-  "name": "@shared/fun-app",
+  "name": "add-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": {
-    ".": "./src/index.js"
-  },
   "scripts": {
     "typecheck": "tsc -p jsconfig.json --noEmit",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
