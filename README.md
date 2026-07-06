@@ -23,6 +23,8 @@ magproj/
 
 各 app / 共有ライブラリの `src/` は同形（`type/ helper/ action/ data/ component/ endpoint/ end2end/ app/`、各 `.gitkeep` 付き。Expo の `end2end` は `web/`・`native/`）。`data/` は middle office プロファイルの pgsql repository 層で使う（他プロファイルでは未使用＝無視）。
 
+各 workspace 直下には成果物置き場 **`doc/`**（`src/` と並列・`.gitkeep` で先置き）も存在し、magdev が `prd.md`/`spec.md`/`midapi.json`/`design/` を書き込む（repo 全体設定 `magdev.json` は repo root）。
+
 ## リネーム規則（`/magdev:new`）
 
 プレースホルダ名は統一パターン **`<prefix>-app`**（prefix = `next` / `expo` / `gas` / `add` / `fun`）。`/magdev:new <共通名> <profile>` が `app` 部分を共通名へ置換する:
