@@ -52,7 +52,7 @@ npm run build -w app/gas-app      # GAS: esbuild で src/app/vendor.js を生成
 ## バージョンと決定性
 
 - **turborepo なし**: JS+JSDoc はビルド産物を持たない（`tsc --noEmit` + `jest` を直接実行）。gate は npm workspaces の `npm run check`（= `typecheck && test`）を全量実行（sub-second）で、簡潔かつ決定論的。
-- 主要ツールチェーンは**精密バージョン固定**で再現性を担保: `jest` は `30.3.0` 固定（30.4.x の native-ESM `--experimental-vm-modules` 不具合を回避）。Next / React / Expo SDK は `package-lock.json` でロック。
+- 主要ツールチェーンは**精密バージョン固定**で再現性を担保: `jest` は `30.3.0` 固定（30.4.x の native-ESM `--experimental-vm-modules` 不具合を回避）。**現行版**: Next **16.2.10** / React **19.2.7** / **Expo SDK 57**（React Native **0.86**）/ TypeScript **6.0** / esbuild **0.28** / clasp **3.x**（`package-lock.json` でロック）。**更新は公式 CLI で in-place**（`@next/codemod upgrade` / `expo install --fix` + `expo-doctor`）＝ JS+JSDoc 構造を保ったまま版整合。
 - プラットフォーム非依存の `shared/fun-app` と Expo アプリの `jsconfig` は `"types": []`（Node プログラムではないため。`@types/node` 経由の `punycode` が `checkJs` 誤検出を起こすのを回避）。Next アプリは `"types": ["node"]` を保持。
 - **拡張子 / 型検査規約**: `type:module` 下では一律 `.js`。`.cjs` は Expo の `babel.config` / `metro.config` のみ（同期ロードで ESM 不可）。per-file `// @ts-check` は使わない（jsconfig の `checkJs` で一括把握）。
 
