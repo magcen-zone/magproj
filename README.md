@@ -14,7 +14,7 @@ magproj/
 │  ├─ next-app/            # Next.js（src/app、jsconfig checkJs、jest ESM、next.config.js transpilePackages）
 │  ├─ expo-app/            # Expo Router（src/app、metro/babel.config.cjs、jest-expo、app.json web.output:single）
 │  ├─ gas-app/             # Google Apps Script（src/app=push 入口、vendor-pack.js→esbuild→src/app/vendor.js、clasp）
-│  └─ add-app/             # claude plugin 雛形（.claude-plugin、skills/helper=正本、agents/hooks/mcp/scripts、commands なし）
+│  └─ add-app/             # claude plugin 雛形（.claude-plugin、skills/example、agents/hooks/mcp/scripts、commands なし）
 └─ shared/
    └─ fun-app/             # 共有ライブラリ @shared/fun-app（プラットフォーム非依存のロジック/型）
 ```
